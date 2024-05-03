@@ -37,6 +37,7 @@ async def apply_configuration(config_data: dict, configurator: ATConfigurator):
     config = config_data.get('config', {})
     await configurator.configurate(config, auth_token=auth_token)
 
+
 async def main(config: str = None, **connection_kwargs):
     connection_parameters = ConnectionParameters(**connection_kwargs)
     configurator = ATConfigurator(connection_parameters=connection_parameters)
