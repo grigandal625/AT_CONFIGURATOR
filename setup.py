@@ -32,6 +32,6 @@ if __name__ == '__main__':
         version=os.getenv('PACKAGE_VERSION', '0.0.dev4'),
         packages=find_packages(where='src'),
         package_dir={'': 'src'},
-        description='AT-TECHNOLOGY message queue component.',
+        description='AT-TECHNOLOGY configuration performer component.',
         install_requires=install_requires
     )
