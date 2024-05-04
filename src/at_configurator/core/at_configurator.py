@@ -26,6 +26,8 @@ class ATConfigurator(ATComponent):
         ])
 
     async def send_configurate(self, component: str, config: ATComponentConfig, auth_token: str = None):
+        if not await self.check_external_registered(component):
+            raise ReferenceError(f'Component "{component}" is not registered')
         return await self.session.send_await(component, message={
             'type': 'configurate',
             'config': config.__dict__,
