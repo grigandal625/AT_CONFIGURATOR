@@ -35,7 +35,7 @@ CONFIG_DATA_SCHEMA = Or(
 async def apply_configuration(config_data: dict, configurator: ATConfigurator):
     auth_token = config_data.get('auth_token', None)
     config = config_data.get('config', {})
-    await configurator.configurate(config, auth_token=auth_token)
+    await configurator.configurate(config=config, auth_token=auth_token)
 
 
 async def main(config: str = None, **connection_kwargs):
