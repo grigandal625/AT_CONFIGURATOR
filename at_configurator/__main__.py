@@ -54,8 +54,8 @@ async def main(config: str = None, **connection_kwargs):
             data = json.load(open(config))
         else:
             raise ValueError(f'Invalid config file {config}, expected yaml, yml or json')
-        config_data = CONFIG_DATA_SCHEMA.validate(data)
-        await apply_configuration(config_data, configurator)
+        CONFIG_DATA_SCHEMA.validate(data)
+        await apply_configuration(data, configurator)
 
     await task
 
