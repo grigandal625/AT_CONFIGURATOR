@@ -57,13 +57,14 @@ async def main(config: str = None, **connection_kwargs):
             raise ValueError(f'Invalid config file {config}, expected yaml, yml or json')
         CONFIG_DATA_SCHEMA.validate(data)
         await apply_configuration(data, configurator)
+    try:
+        if not os.path.exists('/var/run/at_configurator/'):
+            os.makedirs('/var/run/at_configurator/')
 
-    if not os.path.exists('/var/run/at_configurator/'):
-        os.makedirs('/var/run/at_configurator/')
-
-    with open('/var/run/at_configurator/pidfile.pid', 'w') as f:
-        f.write(str(os.getpid()))
-
+        with open('/var/run/at_configurator/pidfile.pid', 'w') as f:
+            f.write(str(os.getpid()))
+    except PermissionError:
+        pass
     await task
 
 
