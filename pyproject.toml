@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "at-configurator"
-version = "0.1.dev3"
+version = "1.0.0"
 description = ""
 authors = ["grigadnal625 <grigandal625@gmail.com>"]
 readme = "README.md"
@@ -12,6 +12,7 @@ at-queue = {git = "https://github.com/grigandal625/AT_QUEUE.git", rev = "master"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
+pre-commit = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
