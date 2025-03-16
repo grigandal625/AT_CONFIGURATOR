@@ -5,12 +5,6 @@ import logging
 import os
 
 import yaml
-from at_config.core.at_config_loader import And
-from at_config.core.at_config_loader import CONFIG_SCHEMA
-from at_config.core.at_config_loader import Optional
-from at_config.core.at_config_loader import Or
-from at_config.core.at_config_loader import Schema
-from at_config.core.at_config_loader import Use
 from at_queue.core.session import ConnectionParameters
 
 from at_configurator.core.at_configurator import ATConfigurator
@@ -50,12 +44,6 @@ parser.add_argument(
 parser.add_argument("-c", "--config", dest="config", help="Initial configuration file", required=False, default=None)
 
 
-CONFIG_DATA_SCHEMA = Or(
-    And(CONFIG_SCHEMA, Use(lambda value: {"config": value})),
-    Schema({Optional("auth_token"): str, "config": CONFIG_SCHEMA}, ignore_extra_keys=True),
-)
-
-
 async def apply_configuration(config_data: dict, configurator: ATConfigurator):
     auth_token = config_data.get("auth_token", None)
     config = config_data.get("config", {})
@@ -78,7 +66,7 @@ async def main(config: str = None, **connection_kwargs):
             data = json.load(open(config))
         else:
             raise ValueError(f"Invalid config file {config}, expected yaml, yml or json")
-        CONFIG_DATA_SCHEMA.validate(data)
+
         await apply_configuration(data, configurator)
     try:
         if not os.path.exists("/var/run/at_configurator/"):
